@@ -23,7 +23,7 @@ app.use('/api/', limiter);
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || 'https://modern-shop-me53.onrender.com',
   credentials: true
 }));
 
