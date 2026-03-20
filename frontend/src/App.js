@@ -1,12 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-
-// Configure axios base URL for production
-// In development, uses proxy (set in package.json)
-// In production, uses REACT_APP_API_URL environment variable
-if (process.env.REACT_APP_API_URL) {
-  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-}
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { SavedAddressesProvider } from './contexts/SavedAddressesContext';
@@ -45,6 +38,12 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import LoadingSpinner from './components/common/LoadingSpinner';
 
+// Configure axios base URL for production
+// In development, uses proxy (set in package.json)
+// In production, uses REACT_APP_API_URL environment variable
+if (process.env.REACT_APP_API_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+}
 
 function App() {
   const { loading } = useAuth();
