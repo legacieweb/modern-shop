@@ -1,0 +1,35 @@
+# ===========================
+# BACKEND SPECIFIC
+# ===========================
+
+# Node modules (if backend has its own)
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Uploads directory
+uploads/
+
+# Logs
+logs/
+*.log
+
+# Debug files
+*.pem
+
+# Build output (if any)
+dist/
+build/
+
+# Coverage
+coverage/
+.nyc_output
+
+# Temporary files
+tmp/
+temp/

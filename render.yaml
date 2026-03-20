@@ -1,0 +1,67 @@
+# Render Blueprint Configuration
+# This file defines the services for deploying to Render
+# 
+# To deploy:
+# 1. Push your code to GitHub
+# 2. Go to https://dashboard.render.com/blueprints
+# 3. Connect your GitHub repository
+# 4. Render will automatically create both services
+
+services:
+  # ===========================
+  # BACKEND API SERVICE
+  # ===========================
+  - name: ecommerce-backend
+    type: web
+    region: oregon
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        # IMPORTANT: Add your MongoDB connection string here or use Render's managed MongoDB
+        # You can create a free MongoDB database at https://render.com/docs/mongodb
+        sync: false
+      - key: JWT_SECRET
+        # Generate a secure random string: openssl rand -base64 32
+        sync: false
+      - key: CLIENT_URL
+        # Will be set to your frontend URL after deployment (e.g., https://your-app.onrender.com)
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        # Get from https://dashboard.paystack.com/#/settings/developer
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        # Get from https://dashboard.paystack.com/#/settings/developer
+        sync: false
+      - key: SMTP_HOST
+        # Your email SMTP host (e.g., smtp.gmail.com, smtp.mailtrap.io)
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        # Your SMTP username
+        sync: false
+      - key: SMTP_PASS
+        # Your SMTP password
+        sync: false
+
+  # ===========================
+  # FRONTEND STATIC SITE
+  # ===========================
+  - name: ecommerce-frontend
+    type: static
+    region: oregon
+    buildCommand: cd frontend && npm install && npm run build
+    publishDir: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        # IMPORTANT: Set this to your backend URL after deploying (e.g., https://ecommerce-backend.onrender.com)
+        # Do not include trailing slash
+        sync: false
+      - key: REACT_APP_PAYSTACK_PUBLIC_KEY
+        # Get from https://dashboard.paystack.com/#/settings/developer
+        sync: false
